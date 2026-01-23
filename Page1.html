@@ -6,32 +6,18 @@
 <title>Bunnyfolks</title>
 <style>
 /* ================= GENERAL ================= */
-html {
-    /* Allow the bounce effect */
-    overflow-y: scroll; 
-    overflow-x: hidden;
-    height: 100%;
-}
-
-body {
-    background-color: white;
+html, body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    height: 100%;
+    }
+
+.page {
+    position: relative;
     width: 100%;
-    min-height: 100%;
-    /* Remove overflow from body so it doesn't fight with html */
-    overflow: visible; 
-}
-
-.page { 
-    position: relative; 
-    width: 100%; 
-    /* Use min-height instead of height to allow content to grow */
-    min-height: 100vh;
-    /* This ensures children don't accidentally create their own scrollbars */
-    overflow: clip; 
-}
-
+    min-height: 100vh;    
+    }
 
 .bg2 {
     width: 100%;
