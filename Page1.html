@@ -360,7 +360,7 @@ function changePage(step) {
 
 function goToPage(pageNum) {
     currentPage = pageNum;
-    document.getElementById('comic-main').src = `../Chapters/BP${currentPage}.jpg`;
+    document.getElementById('comic-main').src = `Chapters/BP${currentPage}.jpg`;
     const menu = document.getElementById('nav-menu');
     menu.classList.remove('menu-animate');
     menu.style.display = 'none';
@@ -382,7 +382,7 @@ const grid = document.getElementById('toc-grid');
 for(let i=1;i<=totalPages;i++){
     const btn = document.createElement('a');
     btn.style.cursor = "pointer";
-    btn.innerHTML = `<img src="../Menu/Pg${i}.png" alt="Page ${i}">`;
+    btn.innerHTML = `<img src="Menu/Pg${i}.png" alt="Page ${i}">`;
     btn.onclick = function(){ goToPage(i); };
     grid.appendChild(btn);
 }
