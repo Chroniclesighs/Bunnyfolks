@@ -1,0 +1,74 @@
+     html, body {
+            background-color: white;
+            margin: 0;
+            overflow-x: hidden;
+            overscroll-behavior-x: none; /* stops horizontal bounce/pull */
+        }
+
+        .page { position: relative; 
+             width: 100%; min-height: 100vh;  max-width: 100vw;   /* ensure page never exceeds viewport */
+            overflow-x: hidden;  /* prevent horizontal scroll */}
+
+        .Blogo {
+            position: absolute;
+            top: 4%;
+            left: 50%;
+            transform: translateX(-48.5%) translateY(1.5%) scale(1.65);
+            width: 40vw;
+            max-width: 600px;
+            z-index: 3;
+            }
+        .Blogo img {
+            width: 103%;
+            height: auto;
+            display: block;
+        }
+
+        .bg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .copyright {width:25%; position:absolute; left:37%;}
+
+        /* Shared positioning for hitboxes */
+        .hitbox {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+        
+        .CTR, .welcomebunny {
+            width: 1200px;
+            max-width: 90vw;
+            display: block;
+            transform-origin: center center;
+        }
+
+
+        @keyframes rock {
+            0%   { transform: rotate(0deg); }
+            25%  { transform: rotate(2deg); }
+            50%  { transform: rotate(0deg); }
+            75%  { transform: rotate(-2deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .hitbox:hover img {
+            animation: rock 1.6s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+      @media (max-width: 600px) {
+        }
+        .CTR, .welcomebunny {
+            width: 120vw; /* Almost full width on mobile */
+            max-width: none; /* Removes the 90vw limit from desktop */
+        }
+        .hitbox {
+            top: 50%; 
+        }
+   
