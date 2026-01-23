@@ -7,21 +7,24 @@
 <style>
 /* ================= GENERAL ================= */
 html, body {
+    background-color: white;
     margin: 0;
-    padding: 0;
+    padding: 0; /* Ensure no extra space is added */
     width: 100%;
-    overflow-x: hidden;
-    background: white;
-    overscroll-behavior-x: none;
+    /* This tells the browser to only show one scrollbar on the root */
+    overflow-x: hidden; 
+    overflow-y: auto; 
 }
 
-.page {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
+.page { 
+    position: relative; 
+    width: 100%; 
+    /* Change min-height to 100% or remove it if body is already handling it */
+    min-height: 100%; 
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow: hidden; /* This prevents the inner container from creating its own scrollbar */
 }
+
 
 .bg2 {
     width: 100%;
