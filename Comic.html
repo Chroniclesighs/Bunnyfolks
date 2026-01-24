@@ -187,6 +187,15 @@ html, body {
 .TOC-button { position: absolute; width: 25%; top: 60%; left: 51%; transform: translateX(-50%); z-index: 10; }
 .Close1-button:hover { transform: scale(1.2); filter: brightness(1.2); }
 
+/* Only hide socials when the menu is actually VISIBLE */
+#nav-menu.menu-animate ~ .Socials { 
+    display: none !important; 
+}
+
+.Socials.desktop-only, .Socials.mobile-only {
+    z-index: 9999 !important; /* This puts them on top of EVERYTHING */
+}
+
 .menu.menu-animate ~ .Socials,
 .menu.menu-animate ~ .Count,
 .menu.menu-animate ~ .starburger-button { display: none !important; }
