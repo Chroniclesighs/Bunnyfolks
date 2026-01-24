@@ -261,8 +261,8 @@ html, body {
         bottom: var(--mobile-social-bottom);
         left: 50%;
         width: 0;
-        height: auto;
-        pointer-events: auto;
+        height: 30px;
+        pointer-events: none;
         z-index: 997;
     }
 
@@ -271,7 +271,7 @@ html, body {
         width: var(--mobile-social-size);
         transform: translateX(-50%);
         margin: 0 !important;
-        pointer-events: auto;
+        pointer-events: auto !important;
         cursor: pointer;
     }
 
@@ -286,10 +286,6 @@ html, body {
     .Socials img.Shop    { left: calc(50% + var(--mobile-social-gap) * 1.5); }
 }
 
-    .Webtoon { left: calc(50% - var(--mobile-social-gap) * 1.5); }
-    .tiktok  { left: calc(50% - var(--mobile-social-gap) * 0.5); }
-    .IG      { left: calc(50% + var(--mobile-social-gap) * 0.5); }
-    .Shop    { left: calc(50% + var(--mobile-social-gap) * 1.5); }
 
     .menu-pages{
         transform: translateX(-53%);
