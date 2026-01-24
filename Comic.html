@@ -104,30 +104,36 @@ html, body {
 .Count img:hover { transform: translate(-50%, -50%) scale(1.1); filter: brightness(1.2); }
 
 /* ================= DESKTOP SOCIALS ================= */
-.Socials {
+/* ================= DESKTOP SOCIALS ================= */
+.Socials.desktop-only {
     position: absolute;
     top: 90%;
     left: 50%;
-    width: 0;
-    height: 0;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
+    transform: translateX(-50%);
+    
+    /* These three lines are the key to making 'gap' work */
+    display: flex !important;
+    flex-direction: row;
+    width: auto; 
+    
+    /* Increase this number to widen the space */
+    gap: 100px; 
+    
     z-index: 99;
+    pointer-events: auto;
 }
-.Socials img {
-    position: absolute;
-    width: 80px;
-    left: 10px;
-    transform: translate(-50%, -50%);
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    transition: transform 0.2s, filter 0.2s;
+
+/* Ensure the links don't have their own absolute positioning fighting the gap */
+.Socials.desktop-only a {
+    position: relative; 
+    transform: none; 
+    left: auto;
+    display: block;
 }
-.Webtoon { margin-left: -249px; pointer-events: auto; }
-.Socials img.tiktok  { width: 55px; margin-left: -80px; pointer-events: auto; }
-.IG      { margin-left: 80px; pointer-events: auto; }
-.Shop    { margin-left: 245px; pointer-events: auto; }
-.Socials img:hover { transform: translate(-50%, -50%) scale(1.1); filter: brightness(1.2); }
+
+.Socials a:hover { transform: scale(1.1); filter: brightness(1.2); }
+.Socials img { width: 80px; height: auto; display: block; }
+.Socials .tiktok-img { width: 50px !important; }
 
 /* ================= MENU ================= */
 .menu-pages {
@@ -194,112 +200,54 @@ html, body {
     filter: brightness(0.8); /* Dims slightly to look like it's being pressed down */
     transition: transform 0.1s ease; /* Fast response for the press */
 }
-.desktop-only { display: block; }
-.mobile-only { display: none; }
 
 /* ================= MOBILE ================= */
+
 @media screen and (max-width: 600px) {
-    /* Hide desktop, show mobile */
-    .desktop-only { display: none !important; }
-    .mobile-only { display: block !important; }
-
-    :root {
-        --mobile-starburger-size: 50px;
-        --mobile-count-size: 42px;
-        --mobile-social-size: 40px;
-        --mobile-starburger-bottom: 230px;
-        --mobile-count-bottom: 280px;
-        --mobile-social-bottom: 60px;
-        --mobile-count-gap: 89px;
-        --mobile-social-gap: 75px;
-    }
-
-    /* STARBURGER */
-    .starburger-button {
-        top: auto; bottom: var(--mobile-starburger-bottom);
-        left: 53%;
-        width: var(--mobile-starburger-size);
-        margin: 0 !important;
-        transform: translateX(-50%);
-        z-index: 999;
-    }
-
-    /* COUNT */
-    .Count-mobile {
-        position: absolute;
-        bottom: var(--mobile-count-bottom);
-        left: 0%;
-        width:100%;
-        height: auto;
-        pointer-events: none;
-        z-index: 998;
-    }
-    .Count-mobile img {
-        position: absolute;
-        width: var(--mobile-social-size);
-        margin: 0 !important;
-        transform: translateX(-50%);
-        pointer-events: auto;
-        cursor: pointer;
-    }
-    /* Individual widths */
-    .Count-mobile img.m-first    { width: 35px; }
-    .Count-mobile img.m-back-nav { width: 80px; }
-    .Count-mobile img.m-next-nav { width: 80px; }
-    .Count-mobile img.m-last     { width: 35px; }
-
-   /* Update these to ensure they align to the screen center */
-.Count-mobile img.m-first    { left: calc(50% - var(--mobile-count-gap) * 1.5); }
-.Count-mobile img.m-back-nav { left: calc(50% - var(--mobile-count-gap) * 0.8);bottom: -35px !important; }
-.Count-mobile img.m-next-nav { left: calc(50% + var(--mobile-count-gap) * 0.9);bottom: -35px !important; }
-.Count-mobile img.m-last     { left: calc(50% + var(--mobile-count-gap) * 1.6); }
-
-    /* SOCIALS */
-   /* MOBILE SOCIALS */
-    .Socials {
-        top: auto;
-        bottom: var(--mobile-social-bottom);
-        left: 50%;
-        width: 0;
-        height: auto;
-        pointer-events: auto;
-        z-index: 997;
-    }
-
-    .Socials img {
-        position: absolute; /* ensure absolute positioning */
-        width: var(--mobile-social-size);
-        transform: translateX(-50%);
-        margin: 0 !important;
-        pointer-events: auto;
-        cursor: pointer;
-    }
-
-    .Socials img.tiktok {
-    width: 25px;  /* Your custom width */
-}
-  
-    /* Horizontal offsets from center using the mobile gap */
-    .Socials img.Webtoon { left: calc(50% - var(--mobile-social-gap) * 1.5); }
-    .Socials img.tiktok  { left: calc(50% - var(--mobile-social-gap) * 0.5); }
-    .Socials img.IG      { left: calc(50% + var(--mobile-social-gap) * 0.5); }
-    .Socials img.Shop    { left: calc(50% + var(--mobile-social-gap) * 1.5); }
-}
-
-    .menu-pages{
-        transform: translateX(-53%);
-    }
-
-    @media screen and (max-width: 600px) {
-
-    .hands {
-        transform: translate(-78.3%, 17.8%) scale(4.92); 
-        width: 70vw;
-    }
+    .Socials.desktop-only { display: none !important; }
     
-    .BP1 {
-        transform: translateY(-49%) translateX(-50%);
+    /* These keep your other toggles working */
+    .desktop-only { display: none !important; }
+    .mobile-only { display: flex !important; }
+
+    .starburger-button { top: auto; bottom: 230px; left: 53%; width: 50px; margin: 0; transform: translateX(-50%); }
+    
+    .Count-mobile {
+        position: absolute; bottom: 280px; left: 0; width: 100%; z-index: 998;
+        display: flex; justify-content: center; pointer-events: none;
     }
+    .Count-mobile img { pointer-events: auto; position: absolute; transform: translateX(-50%); }
+    .m-first { width: 35px; left: calc(50% - 135px); }
+    .m-back-nav { width: 80px; left: calc(50% - 70px); bottom: -35px; }
+    .m-next-nav { width: 80px; left: calc(50% + 75px); bottom: -35px; }
+    .m-last { width: 35px; left: calc(50% + 140px); }
+
+  .Socials.mobile-only {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    
+    bottom: 80px !important; 
+    margin-left: 10px !important; 
+
+    width: 100% !important;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 997;
+    pointer-events: auto;
+}
+    .Socials.mobile-only img { width: 40px; }
+    .Socials.mobile-only img.tiktok-img { width: 25px !important; }
+    
+    /* Order of icons: Webtoon, IG, TikTok, Shop */
+    .Socials.mobile-only .Webtoon { order: 1; }
+    .Socials.mobile-only .IG { order: 2; }
+    .Socials.mobile-only .tiktok { order: 3; } /* TikTok is now moved to the right of IG */
+    .Socials.mobile-only .Shop { order: 4; }
+
+    .hands { transform: translate(-78.3%, 17.8%) scale(4.92); }
 }
 
 /* Show desktop by default */
@@ -357,7 +305,7 @@ html, body {
     <!-- Desktop socials -->
 <div class="Socials desktop-only">
     <a href="https://webtoon.com" target="_blank"><img src="Socials/Webtoon.png" class="Webtoon"></a>
-    <a href="https://www.tiktok.com/@chroniclesighs?_r=1&_t=ZT-93Bz7zmGWIx" target="_blank"><img src="Socials/tiktok.png" class="tiktok"></a>
+    <a href="https://www.tiktok.com/@chroniclesighs?_r=1&_t=ZT-93Bz7zmGWIx" target="_blank"><img src="Socials/tiktok.png" class="tiktok-img"></a>
     <a href="https://www.instagram.com/chroniclesighs?igsh=MWJibzhlcGM0NTFjdQ==" target="_blank"><img src="Socials/IG.png" class="IG"></a>
     <a href="https://shop.com" target="_blank"><img src="Socials/Shop.png" class="Shop"></a>
 </div>
@@ -365,7 +313,7 @@ html, body {
 <!-- Mobile socials -->
 <div class="Socials mobile-only">
     <a href="https://webtoon.com" target="_blank"><img src="Socials/Webtoon.png" class="Webtoon"></a>
-    <a href="https://www.tiktok.com/@chroniclesighs?_r=1&_t=ZT-93Bz7zmGWIx" target="_blank"><img src="Socials/tiktok.png" class="tiktok"></a>
+    <a href="https://www.tiktok.com/@chroniclesighs?_r=1&_t=ZT-93Bz7zmGWIx" target="_blank"><img src="Socials/tiktok.png" class="tiktok-img"></a>
     <a href="https://www.instagram.com/chroniclesighs?igsh=MWJibzhlcGM0NTFjdQ==" target="_blank"><img src="Socials/IG.png" class="IG"></a>
     <a href="https://shop.com" target="_blank"><img src="Socials/Shop.png" class="Shop"></a>
 </div>
