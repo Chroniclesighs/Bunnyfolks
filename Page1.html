@@ -9,7 +9,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x:clip;
     height: 100%;
     }
 
@@ -29,15 +29,16 @@ html, body {
 
 .Blogo {
     position: absolute;
-    top: 4%;
+    top: 1.9%;
     left: 50%;
-    transform: translateX(-51%)  scale(1.6);
-    width: 40vw;
-    max-width: 600px;
+    transform: translateX(-48%);
     z-index: 3;
+    width: 60vw; /* This will work now! */
+    max-width: 2000px;
 }
+
 .Blogo img {
-    width: 103%;
+    width: 100%;
     height: auto;
     display: block;
 }
@@ -54,7 +55,7 @@ html, body {
 .hands { 
     z-index: 200;
     pointer-events: none;
-    transform: translate(-50.3%, -72.3%) scale(7.9);
+    transform: translate(-78.3%, 19.1%) scale(4.92);
 }
 .hands img { width: 100%; height: auto; display: block; }
 
@@ -146,9 +147,29 @@ html, body {
     left: 0;
     width: 100%;
     height: auto;
-    display: none;
     z-index: 10000;
     pointer-events: none;
+    display: none; /* Let JS handle the display */
+}
+
+/* The Bounce Trigger */
+.menu.menu-animate {
+    display: block !important;
+    opacity: 1;
+    pointer-events: auto;
+    /* This 'cubic-bezier' is the secret to the elastic bounce */
+    animation: menuBounceUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes menuBounceUp {
+    0% { 
+        transform: translateY(100%); 
+        opacity: 0; 
+    }
+    100% { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
 }
 .menu-pages a { display: block; z-index: 101; }
 .menu-pages a img { width: 120%; max-width: 130px; display: block; height: auto; }
@@ -156,14 +177,10 @@ html, body {
 .menu-pages img:hover { transform: scale(1.1); filter: brightness(1.15); }
 .menu-container { position: relative; width: 100%; height: auto; pointer-events: auto; }
 .menu-bg { width: 100%; height: auto; display: block; position: relative; z-index: 1; }
-.Close1-button { position: absolute; top: 55%; right: 5%; width: 12%; max-width: 150px; z-index: 10; }
+.Close1-button {cursor:pointer; position: absolute; top: 55%; right: 5%; width: 12%; max-width: 150px; z-index: 10; }
 .TOC-button { position: absolute; width: 25%; top: 60%; left: 51%; transform: translateX(-50%); z-index: 10; }
 .Close1-button:hover { transform: scale(1.2); filter: brightness(1.2); }
 
-.menu.menu-animate {
-    display: block;
-    animation: menuSlideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
 .menu.menu-animate ~ .Socials,
 .menu.menu-animate ~ .Count,
 .menu.menu-animate ~ .starburger-button { display: none !important; }
@@ -274,10 +291,21 @@ html, body {
     .IG      { left: calc(50% + var(--mobile-social-gap) * 0.5); }
     .Shop    { left: calc(50% + var(--mobile-social-gap) * 1.5); }
 
-    /*--Menu pages--*/
     .menu-pages{
         transform: translateX(-53%);
     }
+
+    @media screen and (max-width: 600px) {
+
+    .hands {
+        transform: translate(-78.3%, 17.8%) scale(4.92); 
+        width: 70vw;
+    }
+    
+    .BP1 {
+        transform: translateY(-49%) translateX(-50%);
+    }
+}
 
 /* Show desktop by default */
 .desktop-only { display: block; }
@@ -366,14 +394,22 @@ function goToPage(pageNum) {
     menu.style.display = 'none';
 }
 
+let isMenuOpen = false; // Track the state manually for instant response
+
 function toggleMenu() {
     const menu = document.getElementById('nav-menu');
-    if(menu.style.display === "" || menu.style.display === "none"){
-        menu.style.display='block';
+    
+    if (!isMenuOpen) {
+        menu.style.display = 'block';
+        void menu.offsetWidth; // This is the "Magic Line" that ensures the bounce plays
         menu.classList.add('menu-animate');
+        isMenuOpen = true;
     } else {
         menu.classList.remove('menu-animate');
-        menu.style.display='none';
+        setTimeout(() => {
+            if (!isMenuOpen) menu.style.display = 'none';
+        }, 500); 
+        isMenuOpen = false;
     }
 }
 

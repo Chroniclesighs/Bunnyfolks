@@ -1,29 +1,55 @@
-html, body {
+html {
+    /* 1. This is the only way to get the bounce back in Chrome */
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100.1vh; /* The 0.1 forces the bounce */
+    
+    /* 2. Hide scrollbar for Firefox */
+    scrollbar-width: none;
+    
+    /* 3. Explicitly allow the bounce */
+    overscroll-behavior-y: auto;
+}
+
+/* 4. Hide scrollbar for Chrome, Safari, and Edge */
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    }
+    width: 100%;
+    /* Let the HTML tag handle the scrolling */
+    overflow: visible; 
+    position: relative;
+}
 
-        .page {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;    
-        }
+.page {
+    position: relative;
+    width: 100%;
+    /* Ensure the page is at least full screen */
+    min-height: 100vh;
+    overflow: visible;
+    touch-action: pan-y;
+}
 
-        .Blogo {
-            position: absolute;
-            top: 4%;
-            left: 50%;
-            transform: translateX(-48.5%) translateY(1.5%) scale(1.65);
-            width: 40vw;
-            max-width: 600px;
-            z-index: 3;
-            }
-        .Blogo img {
-            width: 103%;
-            height: auto;
-            display: block;
-        }
+.Blogo {
+    position: absolute;
+    top: 1.5%;
+    left: 50%;
+    transform: translateX(-48%);
+    z-index: 3;
+    width: 60vw; /* This will work now! */
+    max-width: 2000px;
+}
+
+.Blogo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
         .bg {
             width: 100%;
@@ -33,22 +59,13 @@ html, body {
 
         .copyright {width:25%; position:absolute; left:37%;}
 
-        /* Shared positioning for hitboxes */
-        .hitbox {
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
-        }
-        
-        .CTR, .welcomebunny {
-            width: 1200px;
-            max-width: 90vw;
-            display: block;
-            transform-origin: center center;
+        .combined-pos {
+            top: 50%;   
         }
 
+        .hitbox:hover .CTR {
+            animation: rock 1.6s ease-in-out infinite;
+            cursor: pointer;}
 
         @keyframes rock {
             0%   { transform: rotate(0deg); }
@@ -58,18 +75,68 @@ html, body {
             100% { transform: rotate(0deg); }
         }
 
-        .hitbox:hover img {
+        .ctr-pos:hover img {
             animation: rock 1.6s ease-in-out infinite;
             cursor: pointer;
         }
 
-      @media (max-width: 600px) {
+        .bunny-pos:hover img {
+            cursor: pointer;
         }
-        .CTR, .welcomebunny {
-            width: 120vw; /* Almost full width on mobile */
-            max-width: none; /* Removes the 90vw limit from desktop */
-        }
-        .hitbox {
-            top: 50%; 
-        }
-   
+
+   .hitbox {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Centering the whole group */
+    z-index: 5;
+   }
+    
+
+/* Remove 'position: absolute' from these! */
+.CTR {
+    top:40%;
+    width: 800px;
+    height: auto;
+    display: block;
+    margin-bottom: 0;
+}
+
+.welcomebunny {
+    width: 700px;
+    height: auto;
+    display: block;
+    margin-top: -250px;
+}
+
+  .hitbox a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* This controls the space between CTR and Bunny */
+    gap: 0px; 
+}
+@media (max-width: 600px) {
+    .hitbox {
+        /* Ensure the container is still centering everything */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* Reduced gap for smaller screens */
+        top: 45%; 
+    }
+
+    .CTR {
+        width: 70vw; /* Make it a bit bigger for mobile readability */
+        order: 1;    /* Forces it to the top */
+       margin-bottom: -50px !important; /* Clear any desktop margins */
+        transform: none;
+    
+    }
+
+    .welcomebunny {
+        width: 60vw;
+        order: 2;    /* Forces it below CTR */
+        margin: 0 !important; /* This removes that -250px pull! */
+    }
+}
